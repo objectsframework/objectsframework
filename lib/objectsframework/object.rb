@@ -28,14 +28,17 @@ module ObjectsFramework
       #                    if the result of your hook returns true, the request must be finished by your hook
       #                    this can block the request
       # All hooks are blocking, so they could eventually block the request [Future testing required]
-      @@hooks = []
+
+      def self.inherited(klass)
+        klass.instance_variable_set("@hooks", [])
+      end
 
   		def self.get_hooks
-  			@@hooks
+  			@hooks
   		end
 
   		def self.add_hook(hook)
-  			@@hooks << hook
+  			@hooks << hook
   		end
   end
 end
